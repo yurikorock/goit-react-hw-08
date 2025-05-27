@@ -1,14 +1,9 @@
 export default function HomePage() {
   return (
     <>
-      <title>Welcome</title>
+      <title>Welcome to your phonebook</title>
       <div>
-        <h1>
-          Task manager welcome page
-          <span role="img" aria-label="Greeting icon">
-            💁‍♀️
-          </span>
-        </h1>
+        <h1>Phonebook 📲☎</h1>
       </div>
     </>
   );

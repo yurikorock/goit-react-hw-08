@@ -40,6 +40,15 @@ const App = () => {
       <AppBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegistrationPage />}
+            />
+          }
+        />
         {/* <h1 className="title">Phonebook</h1>
         <ContactForm onAdd={handleAddContact} />
         <SearchBox value={filter} onSearch={handleFilterChange} />
