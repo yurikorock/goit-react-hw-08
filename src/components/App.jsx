@@ -15,6 +15,7 @@ import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
 import { LoginPage } from "../pages/LoginPage/LoginPage";
 import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
 import { changeFilter } from "../redux/filtersSlice";
+import { PrivateRoute } from "./PrivateRoute";
 import { useEffect } from "react";
 import { fetchContacts, addContact, deleteContact } from "../redux/contactsOps";
 import { Routes, Route } from "react-router-dom";
