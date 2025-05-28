@@ -10,7 +10,10 @@ import SearchBox from "./SearchBox/Searchbox";
 import { useSelector, useDispatch } from "react-redux";
 import { AppBar } from "./AppBar/AppBar";
 import HomePage from "../pages/HomePage/HomePage";
-
+import { RestrictedRoute } from "./RestrictedRoute/RestrictedRoute";
+import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
+import { LoginPage } from "../pages/LoginPage/LoginPage";
+import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
 import { changeFilter } from "../redux/filtersSlice";
 import { useEffect } from "react";
 import { fetchContacts, addContact, deleteContact } from "../redux/contactsOps";
@@ -47,6 +50,22 @@ const App = () => {
               redirectTo="/contacts"
               component={<RegistrationPage />}
             />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts">
+              <LoginPage />
+            </RestrictedRoute>
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login">
+              <ContactsPage />
+            </PrivateRoute>
           }
         />
         {/* <h1 className="title">Phonebook</h1>
