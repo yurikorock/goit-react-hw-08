@@ -19,12 +19,20 @@ import { PrivateRoute } from "./PrivateRoute";
 import { useEffect } from "react";
 import { fetchContacts, addContact, deleteContact } from "../redux/contactsOps";
 import { Routes, Route } from "react-router-dom";
+import { refreshUser } from "../redux/auth/operations";
+import { selectIsRefreshing } from "../redux/auth/selectors";
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  const isRefreshing = useSelector(selectIsRefreshing);
 
   const filter = useSelector((state) => state.filters.name);
 
@@ -39,7 +47,9 @@ const App = () => {
     dispatch(deleteContact(contactId));
   };
 
-  return (
+  return isRefreshing ? (
+    <p>Refreshing user...</p>
+  ) : (
     <div>
       <AppBar />
       <Routes>
@@ -47,10 +57,9 @@ const App = () => {
         <Route
           path="/register"
           element={
-            <RestrictedRoute
-              redirectTo="/contacts"
-              component={<RegistrationPage />}
-            />
+            <RestrictedRoute redirectTo="/contacts">
+              <RegistrationPage />
+            </RestrictedRoute>
           }
         />
         <Route
@@ -69,10 +78,6 @@ const App = () => {
             </PrivateRoute>
           }
         />
-        {/* <h1 className="title">Phonebook</h1>
-        <ContactForm onAdd={handleAddContact} />
-        <SearchBox value={filter} onSearch={handleFilterChange} />
-        <ContactList onDelete={handleDeleteContact} /> */}
       </Routes>
     </div>
   );
