@@ -7,34 +7,37 @@ import ContactForm from "./ContactForm/ContactForm";
 
 import ContactList from "./ContactList/ContactList";
 import SearchBox from "./SearchBox/Searchbox";
+
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 import { AppBar } from "./AppBar/AppBar";
 import HomePage from "../pages/HomePage/HomePage";
-import { RestrictedRoute } from "./RestrictedRoute/RestrictedRoute";
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
-
 import LoginPage from "../pages/LoginPage/LoginPage";
 import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
 
+import { RestrictedRoute } from "./RestrictedRoute";
 import { PrivateRoute } from "./PrivateRoute";
-import { useEffect } from "react";
 
-import { Routes, Route } from "react-router-dom";
 import { refreshUser } from "../redux/auth/operations";
-import { selectIsRefreshing } from "../redux/auth/selectors";
+import { selectIsRefreshing, selectIsLoggedIn } from "../redux/auth/selectors";
 import { fetchContacts } from "../redux/contacts/operations";
 
 const App = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  const isRefreshing = useSelector(selectIsRefreshing);
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, isLoggedIn]);
 
   return isRefreshing ? (
     <p>Refreshing user...</p>
