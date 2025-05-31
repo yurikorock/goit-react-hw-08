@@ -14,13 +14,14 @@ import { RestrictedRoute } from "./RestrictedRoute/RestrictedRoute";
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
 import { LoginPage } from "../pages/LoginPage/LoginPage";
 import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
-import { changeFilter } from "../redux/filtersSlice";
+
 import { PrivateRoute } from "./PrivateRoute";
 import { useEffect } from "react";
-import { fetchContacts, addContact, deleteContact } from "../redux/contactsOps";
+
 import { Routes, Route } from "react-router-dom";
 import { refreshUser } from "../redux/auth/operations";
 import { selectIsRefreshing } from "../redux/auth/selectors";
+import { fetchContacts } from "../redux/contacts/operations";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,19 +34,6 @@ const App = () => {
   }, [dispatch]);
 
   const isRefreshing = useSelector(selectIsRefreshing);
-
-  const filter = useSelector((state) => state.filters.name);
-
-  const handleAddContact = (newContact) => {
-    dispatch(addContact(newContact));
-  };
-
-  const handleFilterChange = (value) => {
-    dispatch(changeFilter(value));
-  };
-  const handleDeleteContact = (contactId) => {
-    dispatch(deleteContact(contactId));
-  };
 
   return isRefreshing ? (
     <p>Refreshing user...</p>
