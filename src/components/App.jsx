@@ -12,7 +12,8 @@ import { AppBar } from "./AppBar/AppBar";
 import HomePage from "../pages/HomePage/HomePage";
 import { RestrictedRoute } from "./RestrictedRoute/RestrictedRoute";
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
-import { LoginPage } from "../pages/LoginPage/LoginPage";
+
+import LoginPage from "../pages/LoginPage/LoginPage";
 import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
 
 import { PrivateRoute } from "./PrivateRoute";
