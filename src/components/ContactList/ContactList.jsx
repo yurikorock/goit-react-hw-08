@@ -8,7 +8,6 @@ export default function ContactList() {
   const dispatch = useDispatch();
 
   const filteredContacts = useSelector(selectFilteredContacts);
-  console.log("✅ Filtered Contacts:", filteredContacts);
 
   return (
     <ul className={css.list}>

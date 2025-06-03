@@ -23,6 +23,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { refreshUser } from "../redux/auth/operations";
 import { selectIsRefreshing, selectIsLoggedIn } from "../redux/auth/selectors";
 import { fetchContacts } from "../redux/contacts/operations";
+import Layout from "./Layout/Layout";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,34 +44,35 @@ const App = () => {
     <p>Refreshing user...</p>
   ) : (
     <div>
-      <AppBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/register"
-          element={
-            <RestrictedRoute redirectTo="/contacts">
-              <RegistrationPage />
-            </RestrictedRoute>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <RestrictedRoute redirectTo="/contacts">
-              <LoginPage />
-            </RestrictedRoute>
-          }
-        />
-        <Route
-          path="/contacts"
-          element={
-            <PrivateRoute redirectTo="/login">
-              <ContactsPage />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute redirectTo="/contacts">
+                <RegistrationPage />
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/contacts">
+                <LoginPage />
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login">
+                <ContactsPage />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Layout>
     </div>
   );
 };
