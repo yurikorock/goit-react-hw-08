@@ -1,6 +1,7 @@
 //slice.js from contacts
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "./operations";
+import { logOut } from "../auth/operations";
 
 const contactsSlice = createSlice({
   name: "contacts",
@@ -52,7 +53,21 @@ const contactsSlice = createSlice({
       })
       .addCase(deleteContact.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        if (action.payload === "Request failed with status code 401") {
+          state.error = null;
+        } else {
+          state.error = action.payload;
+        }
+      })
+      //delete all contact when user logout
+      .addCase(logOut.pending, (state) => {
+        state.items = [];
+        state.error = null;
+        state.loading = false;
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.items = [];
+        state.error = null;
       });
   },
 });

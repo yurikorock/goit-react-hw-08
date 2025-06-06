@@ -21,7 +21,7 @@ export default function UserMenu() {
   };
   return (
     <div>
-      <p>Hello, {user.email}</p>
+      <p>Hello, {user.name}</p>
       <button onClick={handleLogout}>Log Out</button>
     </div>
   );
