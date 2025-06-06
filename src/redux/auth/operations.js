@@ -67,7 +67,7 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 /*
  * GET @ /users/current
  * headers: Authorization: Bearer token
- */ //добавити condition? 16:40
+ */ //condition
 export const refreshUser = createAsyncThunk(
   "auth/refresh",
   // async (_, thunkAPI) => {
@@ -92,13 +92,10 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-    try {
-      setAuthHeader(persistedToken);
-      const res = await axios.get("/users/current");
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+
+    setAuthHeader(persistedToken);
+    const res = await axios.get("/users/current");
+    return res.data;
   },
   {
     condition: (_, thunkAPI) => {
