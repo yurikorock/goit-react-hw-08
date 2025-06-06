@@ -3,19 +3,17 @@
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import ContactForm from "./ContactForm/ContactForm";
-
-import ContactList from "./ContactList/ContactList";
-import SearchBox from "./SearchBox/Searchbox";
-
+import { lazy, Suspense } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { AppBar } from "./AppBar/AppBar";
-import HomePage from "../pages/HomePage/HomePage";
-import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
+
+const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+const RegistrationPage = lazy(() =>
+  import("../pages/RegistrationPage/RegistrationPage")
+);
+const LoginPage = lazy(() => import("../pages/LoginPage/LoginPage"));
+const ContactsPage = lazy(() => import("../pages/ContactsPage/ContactsPage"));
 
 import { RestrictedRoute } from "./RestrictedRoute";
 import { PrivateRoute } from "./PrivateRoute";
@@ -45,33 +43,35 @@ const App = () => {
   ) : (
     <div>
       <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route
-            path="/register"
-            element={
-              <RestrictedRoute redirectTo="/contacts">
-                <RegistrationPage />
-              </RestrictedRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute redirectTo="/contacts">
-                <LoginPage />
-              </RestrictedRoute>
-            }
-          />
-          <Route
-            path="/contacts"
-            element={
-              <PrivateRoute redirectTo="/login">
-                <ContactsPage />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/register"
+              element={
+                <RestrictedRoute redirectTo="/contacts">
+                  <RegistrationPage />
+                </RestrictedRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <RestrictedRoute redirectTo="/contacts">
+                  <LoginPage />
+                </RestrictedRoute>
+              }
+            />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute redirectTo="/login">
+                  <ContactsPage />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </Suspense>
       </Layout>
     </div>
   );

@@ -67,7 +67,7 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 /*
  * GET @ /users/me
  * headers: Authorization: Bearer token
- */
+ */ //добавити condition? 20хв
 export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
