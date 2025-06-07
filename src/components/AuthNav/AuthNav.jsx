@@ -3,7 +3,7 @@ import styles from "./AuthNav.module.css";
 
 function AuthNav() {
   return (
-    <div className={styles.container}>
+    <div className={styles.wrapper}>
       <NavLink to="/register" className={styles.link}>
         Register
       </NavLink>

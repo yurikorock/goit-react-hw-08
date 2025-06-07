@@ -1,21 +1,21 @@
 .nav {
     display: flex;
-    gap: 16px;
-
+    align-items: center;
+    gap: 12px;
+    margin-right: auto;
+    /* щоб посилання були зліва */
 }
 
 .link {
-    padding: 8px 16px;
-    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: #90caf9;
     color: #1a1a1a;
-    background-color: gold;
-    border-radius: 8px;
+    text-decoration: none;
     font-weight: 500;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
-.link:hover,
-.link.active {
-    background-color: #ffd700;
-    color: #000;
+.link:hover {
+    background-color: #64b5f6;
 }
