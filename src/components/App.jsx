@@ -32,12 +32,6 @@ const App = () => {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(fetchContacts());
-    }
-  }, [dispatch, isLoggedIn]);
-
   return isRefreshing ? (
     <p>Refreshing user...</p>
   ) : (

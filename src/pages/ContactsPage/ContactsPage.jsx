@@ -3,16 +3,20 @@
 import ContactForm from "../../components/ContactForm/ContactForm";
 import SearchBox from "../../components/SearchBox/Searchbox";
 import ContactList from "../../components/ContactList/ContactList";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchContacts } from "../../redux/contacts/operations";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+    if (isLoggedIn) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, selectIsLoggedIn]);
   return (
     <div>
       <h1>Phonebook</h1>
